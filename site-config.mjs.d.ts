@@ -55,4 +55,6 @@ export interface AppConfig {
 
 export const appConfig: AppConfig;
 export function withTrailingSlash(pathname: string, shouldUseTrailingSlash?: boolean): string;
-export function getAbsoluteUrl(pathname?: string, site?: string): string;
+export function withBasePath(pathname?: string, base?: string): string;
+export function stripBasePath(pathname?: string, base?: string): string;
+export function getAbsoluteUrl(pathname?: string, site?: string, base?: string): string;

@@ -1,6 +1,6 @@
 import en from "./locales/en";
 import es from "./locales/es";
-import { SITE, withTrailingSlash } from "@/config";
+import { SITE, stripBasePath, withBasePath, withTrailingSlash } from "@/config";
 import type { Lang, LocaleDictionary, ProjectEntry } from "./types";
 
 export type { Lang } from "./types";
@@ -18,11 +18,12 @@ export function getDictionary(lang: Lang = DEFAULT_LANG): LocaleDictionary {
 }
 
 export function getLangFromPath(pathname: string): Lang {
-    return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "es";
+    const pathWithoutBase = stripBasePath(pathname);
+    return pathWithoutBase === "/en" || pathWithoutBase.startsWith("/en/") ? "en" : "es";
 }
 
 export function stripLangFromPath(pathname: string): string {
-    const strippedPath = pathname.replace(/^\/en(?=\/|$)/, "");
+    const strippedPath = stripBasePath(pathname).replace(/^\/en(?=\/|$)/, "");
     return strippedPath === "" ? "/" : strippedPath;
 }
 
@@ -32,15 +33,8 @@ export function getLocalizedPath(lang: Lang, path: string): string {
         ? normalizedPath === "/" ? "/en" : `/en${normalizedPath}`
         : normalizedPath;
 
-    if (!SITE.trailingSlash) {
-        return localizedPath;
-    }
-
-    if (lang === "en") {
-        return withTrailingSlash(localizedPath);
-    }
-
-    return withTrailingSlash(localizedPath);
+    const pathWithSlash = SITE.trailingSlash ? withTrailingSlash(localizedPath) : localizedPath;
+    return withBasePath(pathWithSlash);
 }
 
 export function getAlternateLangPath(pathname: string, targetLang: Lang): string {

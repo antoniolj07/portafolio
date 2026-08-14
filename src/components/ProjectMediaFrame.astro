@@ -1,5 +1,6 @@
 ---
 import { cn } from "@/lib/utils";
+import { withBasePath } from "@/config";
 import type { ProjectImage } from "@/i18n/types";
 
 interface Props {
@@ -14,6 +15,8 @@ const frame = image.frame ?? "plain";
 const darkSrc = image.darkSrc ?? "";
 const hasDarkImage = Boolean(darkSrc);
 const label = image.label ?? urlLabel;
+const imageSrc = withBasePath(image.src);
+const themedDarkSrc = hasDarkImage ? withBasePath(darkSrc) : "";
 
 const browserFigureClass = cn(
     "relative w-full overflow-hidden rounded-[24px] border border-neutral-200/80 bg-white/95 shadow-[0_18px_60px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#071117]",
@@ -61,9 +64,9 @@ const plainImageClass = cn(
             </div>
         </div>
         <div class={browserScreenClass}>
-            <img src={image.src} alt={image.alt} class={cn("h-full w-full object-contain", hasDarkImage && "dark:hidden")} loading="lazy" />
+            <img src={imageSrc} alt={image.alt} class={cn("h-full w-full object-contain", hasDarkImage && "dark:hidden")} loading="lazy" />
             {hasDarkImage && (
-                <img src={darkSrc} alt={image.alt} class="hidden h-full w-full object-contain dark:block" loading="lazy" />
+                <img src={themedDarkSrc} alt={image.alt} class="hidden h-full w-full object-contain dark:block" loading="lazy" />
             )}
         </div>
     </figure>
@@ -72,9 +75,9 @@ const plainImageClass = cn(
         <div class="relative rounded-[2.3rem] border border-white/20 bg-[#0b1118] p-2 shadow-[0_24px_70px_rgba(15,23,42,0.22)] dark:border-white/10">
             <div class="absolute left-1/2 top-3 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#0b1118]"></div>
             <div class="relative aspect-[9/19.5] overflow-hidden rounded-[1.75rem] bg-white dark:bg-[#071117]">
-                <img src={image.src} alt={image.alt} class={cn("h-full w-full object-cover", hasDarkImage && "dark:hidden")} loading="lazy" />
+                <img src={imageSrc} alt={image.alt} class={cn("h-full w-full object-cover", hasDarkImage && "dark:hidden")} loading="lazy" />
                 {hasDarkImage && (
-                    <img src={darkSrc} alt={image.alt} class="hidden h-full w-full object-cover dark:block" loading="lazy" />
+                    <img src={themedDarkSrc} alt={image.alt} class="hidden h-full w-full object-cover dark:block" loading="lazy" />
                 )}
             </div>
         </div>
@@ -86,9 +89,9 @@ const plainImageClass = cn(
     </figure>
 ) : (
     <figure class={plainFigureClass}>
-        <img src={image.src} alt={image.alt} class={plainImageClass} loading="lazy" />
+        <img src={imageSrc} alt={image.alt} class={plainImageClass} loading="lazy" />
         {hasDarkImage && (
-            <img src={darkSrc} alt={image.alt} class={cn("hidden h-full w-full object-contain dark:block", variant === "card" ? "p-4 md:p-6" : "max-h-[720px] p-4 md:p-6")} loading="lazy" />
+            <img src={themedDarkSrc} alt={image.alt} class={cn("hidden h-full w-full object-contain dark:block", variant === "card" ? "p-4 md:p-6" : "max-h-[720px] p-4 md:p-6")} loading="lazy" />
         )}
     </figure>
 )}

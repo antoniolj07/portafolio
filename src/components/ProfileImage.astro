@@ -2,7 +2,7 @@
 import type {ImageMetadata} from 'astro';
 import {Image} from 'astro:assets';
 
-import {PROFILE} from '@/config';
+import {PROFILE, withBasePath} from '@/config';
 
 interface Props {
     name: string;
@@ -11,6 +11,7 @@ interface Props {
 const { name } = Astro.props as Props;
 const profileImage = PROFILE.profileImage;
 const isPublicImage = profileImage.startsWith("/");
+const publicProfileImage = withBasePath(profileImage);
 
 const assetImagePath = `/src/assets/${profileImage}`;
 const assetImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}');
@@ -24,7 +25,7 @@ if (!isPublicImage && !assetImages[assetImagePath]) {
     {isPublicImage ? (
         <img
             class="block w-full h-full object-cover object-[center_24%]"
-            src={profileImage}
+            src={publicProfileImage}
             alt={`Foto de perfil de ${name}`}
             loading="eager"
         />

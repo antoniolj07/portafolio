@@ -206,9 +206,39 @@ export function withTrailingSlash(pathname, shouldUseTrailingSlash = appConfig.s
     return pathPart.endsWith("/") ? pathname : `${pathPart}/${suffix}`;
 }
 
-export function getAbsoluteUrl(pathname = "/", site = appConfig.site.site) {
+export function withBasePath(pathname = "/", base = appConfig.site.base) {
     if (/^https?:\/\//.test(pathname)) return pathname;
 
     const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
-    return new URL(normalizedPath, `${site}/`).href;
+    if (!base || base === "/") return normalizedPath;
+
+    const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+    const baseWithoutTrailingSlash = normalizedBase.slice(0, -1);
+
+    if (normalizedPath === baseWithoutTrailingSlash || normalizedPath.startsWith(normalizedBase)) {
+        return normalizedPath;
+    }
+
+    return `${baseWithoutTrailingSlash}${normalizedPath}`;
+}
+
+export function stripBasePath(pathname = "/", base = appConfig.site.base) {
+    if (/^https?:\/\//.test(pathname) || !base || base === "/") return pathname;
+
+    const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
+    const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+    const baseWithoutTrailingSlash = normalizedBase.slice(0, -1);
+
+    if (normalizedPath === baseWithoutTrailingSlash) return "/";
+    if (normalizedPath.startsWith(normalizedBase)) {
+        return normalizedPath.slice(baseWithoutTrailingSlash.length) || "/";
+    }
+
+    return normalizedPath;
+}
+
+export function getAbsoluteUrl(pathname = "/", site = appConfig.site.site, base = appConfig.site.base) {
+    if (/^https?:\/\//.test(pathname)) return pathname;
+
+    return new URL(withBasePath(pathname, base), `${site}/`).href;
 }

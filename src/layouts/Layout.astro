@@ -6,7 +6,7 @@ import '@/styles/globals.css'
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
-import { getAbsoluteUrl, getCanonicalUrl, getRobotsContent, METADATA, SITE, UI } from '@/config';
+import { getAbsoluteUrl, getCanonicalUrl, getRobotsContent, METADATA, SITE, UI, withBasePath } from '@/config';
 import { DEFAULT_LANG, getLangFromPath, type Lang } from "@/i18n";
 
 interface Props {
@@ -58,8 +58,8 @@ const themePreference = UI.theme;
     {SITE.googleSiteVerificationId && (
         <meta name="google-site-verification" content={SITE.googleSiteVerificationId}/>
     )}
-    <link rel="sitemap" href="/sitemap-index.xml"/>
-    <link rel="icon" href={SITE.favicon}/>
+    <link rel="sitemap" href={withBasePath("/sitemap-index.xml")}/>
+    <link rel="icon" href={withBasePath(SITE.favicon)}/>
     <link rel="canonical" href={resolvedCanonicalURL}/>
 
     <meta property="og:type" content={METADATA.openGraph.type}/>

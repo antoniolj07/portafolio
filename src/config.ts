@@ -1,4 +1,10 @@
-import { appConfig, getAbsoluteUrl as getConfiguredAbsoluteUrl, withTrailingSlash as withConfiguredTrailingSlash } from "../site-config.mjs";
+import {
+    appConfig,
+    getAbsoluteUrl as getConfiguredAbsoluteUrl,
+    stripBasePath as stripConfiguredBasePath,
+    withBasePath as withConfiguredBasePath,
+    withTrailingSlash as withConfiguredTrailingSlash,
+} from "../site-config.mjs";
 
 const defaultOgImage = appConfig.metadata.openGraph.images[0];
 
@@ -58,8 +64,16 @@ export function withTrailingSlash(pathname: string) {
     return withConfiguredTrailingSlash(pathname, SITE.trailingSlash);
 }
 
+export function withBasePath(pathname = "/") {
+    return withConfiguredBasePath(pathname, SITE.base);
+}
+
+export function stripBasePath(pathname = "/") {
+    return stripConfiguredBasePath(pathname, SITE.base);
+}
+
 export function getAbsoluteUrl(pathname = "/") {
-    return getConfiguredAbsoluteUrl(pathname, SITE.website);
+    return getConfiguredAbsoluteUrl(pathname, SITE.website, SITE.base);
 }
 
 export function getCanonicalUrl(pathname: string) {

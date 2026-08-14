@@ -1,8 +1,12 @@
 site:
   name: Jorge Portfolio
-  # Actualiza este valor cuando tengas el dominio final del portafolio.
-  site: 'https://tu-dominio.com'
-  base: '/'
+  # GitHub Pages project site:
+  # https://antoniolj07.github.io/portafolio/
+  #
+  # Si luego usas un dominio propio, cambia `site` al dominio final y `base`
+  # normalmente vuelve a ser '/'.
+  site: 'https://antoniolj07.github.io'
+  base: '/portafolio/'
   trailingSlash: true
   googleSiteVerificationId: ''
 

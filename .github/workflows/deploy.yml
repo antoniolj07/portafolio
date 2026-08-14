@@ -1,0 +1,86 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v6
+        with:
+          enablement: true
+
+      - name: Check base path
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: |
+          if [ -z "$PAGES_BASE_PATH" ]; then
+            echo "::warning::configure-pages no devolvio 'base_path'; se omite la comprobacion del base."
+            exit 0
+          fi
+
+          expected="${PAGES_BASE_PATH%/}"
+          [ -z "$expected" ] && expected="/"
+
+          actual=$(node --input-type=module -e "import { appConfig } from './site-config.mjs'; const base = appConfig.site.base === '/' ? '/' : appConfig.site.base.replace(/\/$/, ''); process.stdout.write(base);")
+
+          echo "GitHub Pages sirve el sitio en $PAGES_BASE_URL (base '$expected')"
+          echo "config.yaml declara base '$actual'"
+
+          if [ "$expected" != "$actual" ]; then
+            echo "::error file=config.yaml::El 'base' declarado ('$actual') no coincide con el de GitHub Pages ('$expected'). Actualiza site.base en config.yaml."
+            exit 1
+          fi
+
+      - name: Build site
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
