@@ -1,0 +1,94 @@
+---
+import { cn } from "@/lib/utils";
+import type { ProjectImage } from "@/i18n/types";
+
+interface Props {
+    image: ProjectImage;
+    variant?: "card" | "hero" | "gallery";
+    urlLabel?: string;
+    class?: string;
+}
+
+const { image, variant = "gallery", urlLabel, class: className } = Astro.props as Props;
+const frame = image.frame ?? "plain";
+const darkSrc = image.darkSrc ?? "";
+const hasDarkImage = Boolean(darkSrc);
+const label = image.label ?? urlLabel;
+
+const browserFigureClass = cn(
+    "relative w-full overflow-hidden rounded-[24px] border border-neutral-200/80 bg-white/95 shadow-[0_18px_60px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#071117]",
+    variant === "card" && "rounded-[22px]",
+    variant === "hero" && "rounded-[30px]",
+    className,
+);
+
+const browserScreenClass = cn(
+    "relative overflow-hidden bg-slate-50 dark:bg-[#0e1724]",
+    "aspect-[16/9]",
+);
+
+const phoneFigureClass = cn(
+    "relative mx-auto w-full",
+    variant === "card" && "max-w-[220px]",
+    variant === "hero" && "max-w-[320px]",
+    variant === "gallery" && "max-w-[260px]",
+    className,
+);
+
+const plainFigureClass = cn(
+    "relative w-full overflow-hidden rounded-[24px] border border-neutral-200 bg-neutral-100 dark:border-n700 dark:bg-black/20",
+    variant === "card" && "aspect-[16/10]",
+    className,
+);
+
+const plainImageClass = cn(
+    "h-full w-full object-contain",
+    variant === "card" ? "p-4 md:p-6" : "max-h-[720px] p-4 md:p-6",
+    hasDarkImage && "dark:hidden",
+);
+---
+
+{frame === "browser" ? (
+    <figure class={browserFigureClass}>
+        <div class="flex items-center gap-3 border-b border-neutral-200/80 bg-white/90 px-4 py-3 dark:border-white/10 dark:bg-white/[0.03]">
+            <div class="flex gap-1.5">
+                <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+            </div>
+            <div class="min-w-0 flex-1 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-[11px] font-medium text-n500 dark:border-white/10 dark:bg-white/[0.04] dark:text-n200">
+                <span class="block truncate">{label ?? "syncdistro.syncfreight.com"}</span>
+            </div>
+        </div>
+        <div class={browserScreenClass}>
+            <img src={image.src} alt={image.alt} class={cn("h-full w-full object-contain", hasDarkImage && "dark:hidden")} loading="lazy" />
+            {hasDarkImage && (
+                <img src={darkSrc} alt={image.alt} class="hidden h-full w-full object-contain dark:block" loading="lazy" />
+            )}
+        </div>
+    </figure>
+) : frame === "phone" ? (
+    <figure class={phoneFigureClass}>
+        <div class="relative rounded-[2.3rem] border border-white/20 bg-[#0b1118] p-2 shadow-[0_24px_70px_rgba(15,23,42,0.22)] dark:border-white/10">
+            <div class="absolute left-1/2 top-3 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#0b1118]"></div>
+            <div class="relative aspect-[9/19.5] overflow-hidden rounded-[1.75rem] bg-white dark:bg-[#071117]">
+                <img src={image.src} alt={image.alt} class={cn("h-full w-full object-cover", hasDarkImage && "dark:hidden")} loading="lazy" />
+                {hasDarkImage && (
+                    <img src={darkSrc} alt={image.alt} class="hidden h-full w-full object-cover dark:block" loading="lazy" />
+                )}
+            </div>
+        </div>
+        {label && (
+            <figcaption class="mt-3 text-center text-xs font-semibold uppercase tracking-[0.16em] text-n500 dark:text-n200">
+                {label}
+            </figcaption>
+        )}
+    </figure>
+) : (
+    <figure class={plainFigureClass}>
+        <img src={image.src} alt={image.alt} class={plainImageClass} loading="lazy" />
+        {hasDarkImage && (
+            <img src={darkSrc} alt={image.alt} class={cn("hidden h-full w-full object-contain dark:block", variant === "card" ? "p-4 md:p-6" : "max-h-[720px] p-4 md:p-6")} loading="lazy" />
+        )}
+    </figure>
+)}

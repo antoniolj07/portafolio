@@ -1,0 +1,32 @@
+---
+import FeaturedProjects from "@/components/FeaturedProjects.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getDictionary, type Lang } from "@/i18n";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const dict = getDictionary(lang);
+---
+
+<Layout
+    lang={lang}
+    title={`${dict.projects.pageTitle} | ${dict.site.title}`}
+    description={dict.projects.pageDescription}
+    tags={dict.site.tags}
+    author={dict.site.author}
+    scrollSmooth={false}
+>
+    <>
+        <section>
+            <div class="mb-4 flex flex-col gap-3 max-w-4xl">
+                <p class="text-sm uppercase tracking-[0.25em] text-n500 dark:text-n200">{dict.projects.eyebrow}</p>
+                <h1 class="break-words text-3xl font-bold md:text-5xl">{dict.projects.pageTitle}</h1>
+                <p class="text-n700 dark:text-n200 leading-7">{dict.projects.pageDescription}</p>
+            </div>
+        </section>
+        <FeaturedProjects lang={lang} showIntro={false} />
+    </>
+</Layout>

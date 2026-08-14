@@ -1,14 +1,10 @@
 export const menu = [
     {
         href: '/',
-        label: 'Home',
+        label: 'Inicio',
     },
     {
         href: '/projects',
-        label: 'Projects',
-    },
-    {
-        href: '/blog',
-        label: 'Blog',
+        label: 'Proyectos',
     },
 ]

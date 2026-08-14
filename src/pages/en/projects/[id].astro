@@ -1,0 +1,15 @@
+---
+import ProjectDetailView from "@/components/ProjectDetailView.astro";
+import { getProjects } from "@/i18n";
+
+export async function getStaticPaths() {
+    return getProjects("en").map((project) => ({
+        params: { id: project.slug },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+---
+
+<ProjectDetailView lang="en" project={project} />

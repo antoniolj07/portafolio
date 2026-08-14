@@ -1,23 +1,26 @@
 ---
-// components imports
 import ProfileImage from "./ProfileImage.astro";
 import Social from "./Social.astro";
 
-// config import
-import {ME} from '@/config';
+import {getDictionary, type Lang} from "@/i18n";
 
-const { name, profession } = ME;
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const { profile } = getDictionary(lang);
 ---
 
-<div class={'w-full flex items-center justify-start mt-5'} >
-    <div class="flex items-center gap-6 w-full">
-        <div class={"border-[3px] border-primary-light dark:border-primary-dark p-1.5 rounded-full "} style={{ overflow: 'hidden' }}>
-            <ProfileImage  />
+<div class="mt-5 flex w-full items-center justify-start">
+    <div class="flex w-full min-w-0 flex-col items-center gap-5 sm:flex-row sm:gap-6">
+        <div class="w-[132px] h-[132px] md:w-[152px] md:h-[152px] shrink-0 rounded-full border-[3px] border-primary-light dark:border-primary-dark p-[3px] flex items-center justify-center">
+            <ProfileImage name={profile.name} />
         </div>
-        <div class={'profile-info flex flex-col gap-2 w-full'}>
-            <div class="info">
-                <h1 class={'text-xl md:text-2xl lg:text-4xl xl:text-4xl text-n900 dark:text-white'}>{ name }</h1>
-                <p class={'text-sm text-n500 dark:text-n200'}>{ profession }</p>
+        <div class="profile-info flex min-w-0 flex-col gap-2 text-center sm:w-full sm:text-left">
+            <div class="info min-w-0">
+                <h1 class={'text-xl md:text-2xl lg:text-4xl xl:text-4xl text-n900 dark:text-white'}>{profile.name}</h1>
+                <p class={'max-w-full text-sm text-n500 dark:text-n200'}>{profile.profession}</p>
             </div>
             <Social />
         </div>

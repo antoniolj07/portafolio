@@ -1,0 +1,36 @@
+---
+import ProfileInfo from "@/components/ProfileInfo.astro";
+import ProfileActionButton from "@/components/ProfileActionButton.astro";
+import TabsButtons from "@/components/TabsButtons.tsx";
+import ProjectsCC from "@/components/ProjectsCC.astro";
+import AboutMeCC from "@/components/AboutMeCC.astro";
+import ProfileFacts from "@/components/ProfileFacts.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getDictionary, type Lang } from "@/i18n";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const dict = getDictionary(lang);
+---
+
+<Layout
+    lang={lang}
+    title={dict.site.title}
+    description={dict.site.description}
+    tags={dict.site.tags}
+    author={dict.site.author}
+    scrollSmooth={false}
+>
+    <>
+        <ProfileInfo lang={lang}/>
+        <ProfileFacts lang={lang}/>
+        <ProfileActionButton lang={lang}/>
+        <TabsButtons client:idle portfolioLabel={dict.home.tabs.portfolio} aboutLabel={dict.home.tabs.about}>
+            <ProjectsCC slot="portfolio" lang={lang}/>
+            <AboutMeCC slot="about" lang={lang}/>
+        </TabsButtons>
+    </>
+</Layout>

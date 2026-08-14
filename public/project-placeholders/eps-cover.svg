@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" fill="none">
+  <rect width="1200" height="720" fill="#E4EFEA"/>
+  <rect x="72" y="72" width="1056" height="576" rx="36" fill="#F9FCFB"/>
+  <rect x="132" y="136" width="430" height="448" rx="28" fill="#D4E5DC"/>
+  <rect x="606" y="136" width="460" height="96" rx="24" fill="#123524"/>
+  <rect x="606" y="264" width="460" height="28" rx="14" fill="#9DB9AA"/>
+  <rect x="606" y="316" width="400" height="28" rx="14" fill="#B9CEC3"/>
+  <rect x="606" y="390" width="210" height="182" rx="24" fill="#DCE8E1"/>
+  <rect x="856" y="390" width="210" height="182" rx="24" fill="#E9F1ED"/>
+  <text x="132" y="618" fill="#123524" font-family="Arial, sans-serif" font-size="42" font-weight="700">EPS USAC</text>
+  <text x="132" y="666" fill="#3A5B4B" font-family="Arial, sans-serif" font-size="26">Integrated Library System Placeholder</text>
+</svg>

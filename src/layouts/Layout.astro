@@ -6,7 +6,8 @@ import '@/styles/globals.css'
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
-import {SITE} from '@/config';
+import { getAbsoluteUrl, getCanonicalUrl, getRobotsContent, METADATA, SITE, UI } from '@/config';
+import { DEFAULT_LANG, getLangFromPath, type Lang } from "@/i18n";
 
 interface Props {
     title?: string;
@@ -16,53 +17,90 @@ interface Props {
     author?: string;
     imageOg?: string;
     canonicalURL?: string;
+    lang?: Lang;
 }
 
 const {
-    title = SITE.title,
-    description = SITE.description,
-    tags = SITE.tags,
-    author = SITE.author,
+    title,
+    description,
+    tags = [],
+    author,
     scrollSmooth,
-    canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+    canonicalURL,
     imageOg = SITE.ogImage,
+    lang = getLangFromPath(Astro.url.pathname) ?? DEFAULT_LANG,
 } = Astro.props;
+
+const resolvedTitle = title ?? METADATA.title.default;
+const resolvedDescription = description ?? METADATA.description;
+const resolvedAuthor = author ?? SITE.logoText;
+const resolvedCanonicalURL = canonicalURL ?? getCanonicalUrl(Astro.url.pathname);
+const resolvedOgImage = getAbsoluteUrl(imageOg);
+const defaultOgImage = METADATA.openGraph.images[0];
+const themePreference = UI.theme;
 ---
 
 <!doctype html>
-<html lang={SITE.lang ?? "en"} class={cn({"scroll-smooth": scrollSmooth})}>
+<html lang={lang} dir={SITE.textDirection} class={cn({"scroll-smooth": scrollSmooth})}>
 <head>
     <meta name="msapplication-TileColor" content="#000000"/>
     <meta name="viewport" content="width=device-width"/>
     <meta charset="UTF-8"/>
     <meta name="generator" content={Astro.generator}/>
 
-    <meta name="title" content={title}/>
-    <meta name="description" content={description}/>
+    <meta name="title" content={resolvedTitle}/>
+    <meta name="description" content={resolvedDescription}/>
     <meta name="keywords" content={tags.join(', ')}/>
-    <meta name="author" content={author}/>
+    <meta name="author" content={resolvedAuthor}/>
+    <meta name="robots" content={getRobotsContent()}/>
+    <meta name="theme-color" content="#E9EBEC" media="(prefers-color-scheme: light)"/>
+    <meta name="theme-color" content="#0C151D" media="(prefers-color-scheme: dark)"/>
+    {SITE.googleSiteVerificationId && (
+        <meta name="google-site-verification" content={SITE.googleSiteVerificationId}/>
+    )}
     <link rel="sitemap" href="/sitemap-index.xml"/>
     <link rel="icon" href={SITE.favicon}/>
-    <link rel="canonical" href={canonicalURL}/>
+    <link rel="canonical" href={resolvedCanonicalURL}/>
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:title" content={title}/>
-    <meta property="og:description" content={description}/>
-    <meta property="og:url" content={canonicalURL}/>
-    <meta property="og:image" content={imageOg}/>
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image"/>
-    <meta property="twitter:url" content={canonicalURL}/>
-    <meta property="twitter:title" content={title}/>
-    <meta property="twitter:description" content={description}/>
-    <meta property="twitter:image" content={imageOg}/>
+    <meta property="og:type" content={METADATA.openGraph.type}/>
+    <meta property="og:site_name" content={METADATA.openGraph.site_name}/>
+    <meta property="og:title" content={resolvedTitle}/>
+    <meta property="og:description" content={resolvedDescription}/>
+    <meta property="og:url" content={resolvedCanonicalURL}/>
+    <meta property="og:image" content={resolvedOgImage}/>
+    {defaultOgImage?.width && <meta property="og:image:width" content={String(defaultOgImage.width)}/>}
+    {defaultOgImage?.height && <meta property="og:image:height" content={String(defaultOgImage.height)}/>}
+    {defaultOgImage?.alt && <meta property="og:image:alt" content={defaultOgImage.alt}/>}
+    <meta property="twitter:card" content={METADATA.twitter.cardType}/>
+    <meta property="twitter:url" content={resolvedCanonicalURL}/>
+    <meta property="twitter:title" content={resolvedTitle}/>
+    <meta property="twitter:description" content={resolvedDescription}/>
+    <meta property="twitter:image" content={resolvedOgImage}/>
 
-    <title>{title}</title>
+    <title>{resolvedTitle}</title>
+    <script is:inline define:vars={{ themePreference }}>
+        (() => {
+            const storageKey = "portfolio-theme";
+            const root = document.documentElement;
+            const lockedTheme = themePreference === "light:only" || themePreference === "dark:only";
+            const storedTheme = localStorage.getItem(storageKey);
+            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            const configuredTheme = themePreference === "system"
+                ? systemTheme
+                : themePreference.replace(":only", "");
+            const theme = !lockedTheme && (storedTheme === "light" || storedTheme === "dark")
+                ? storedTheme
+                : configuredTheme;
+
+            root.classList.toggle("dark", theme === "dark");
+            root.style.colorScheme = theme;
+        })();
+    </script>
     <ClientRouter/>
 </head>
-<body class="bg-light-theme dark:bg-dark-theme antialiased text-n700 dark:text-light-theme w-full h-screen flex flex-col">
+<body class="min-h-screen w-full overflow-x-hidden bg-light-theme antialiased text-n700 transition-colors duration-300 dark:bg-dark-theme dark:text-light-theme flex flex-col">
 <Navbar/>
-<main class="container py-24 flex gap-8 flex-col" role="main"  id="top">
+<main class="container py-20 md:py-24 flex gap-10 flex-col" role="main" id="top">
     <slot/>
 </main>
 <Footer/>

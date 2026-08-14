@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ['media'],
+    darkMode: 'class',
     content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
 		container: {
@@ -8,10 +8,11 @@ export default {
 			screens: {
 				sm: "100%",
 				md: "100%",
-				lg: "520px",
-				xl: "620px"
+				lg: "960px",
+				xl: "1180px",
+				"2xl": "1440px"
 			},
-			padding: '2rem',
+			padding: '1rem',
 		},
     	extend: {
     		borderRadius: {

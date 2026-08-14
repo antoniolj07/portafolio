@@ -1,0 +1,24 @@
+---
+import { getAlternateLangPath, getDictionary, getLangFromPath, SUPPORTED_LANGS } from "@/i18n";
+
+const pathname = Astro.url.pathname;
+const currentLang = getLangFromPath(pathname);
+const dict = getDictionary(currentLang);
+---
+
+<div class="flex items-center gap-2">
+    <span class="sr-only">{dict.navigation.languageLabel}</span>
+    {SUPPORTED_LANGS.map((lang) => (
+        <a
+            href={getAlternateLangPath(pathname, lang)}
+            class:list={{
+                ["rounded-full border px-3 py-1 text-xs font-semibold tracking-[0.2em] transition-colors"]: true,
+                ["border-primary-light bg-primary-light/15 text-n900 dark:border-primary-dark dark:bg-primary-dark/20 dark:text-white"]: currentLang === lang,
+                ["border-neutral-300 text-n500 hover:border-primary-light hover:text-n900 dark:border-n700 dark:text-n200 dark:hover:border-primary-dark dark:hover:text-white"]: currentLang !== lang,
+            }}
+            aria-label={`${dict.navigation.languageLabel}: ${dict.navigation.languages[lang]}`}
+        >
+            {dict.navigation.languages[lang]}
+        </a>
+    ))}
+</div>

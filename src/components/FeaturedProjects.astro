@@ -1,0 +1,37 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+
+import { getDictionary, getLocalizedPath, getProjects, type Lang } from "@/i18n";
+import { cn } from "@/lib/utils";
+
+interface Props {
+    lang: Lang;
+    showIntro?: boolean;
+}
+
+const { lang, showIntro = true } = Astro.props as Props;
+const dict = getDictionary(lang);
+const projects = getProjects(lang);
+---
+
+<section class={cn("w-full", showIntro ? "mt-10" : "mt-2")}>
+    {showIntro && (
+        <div class="mb-8 flex max-w-4xl flex-col gap-3">
+            <p class="text-sm uppercase tracking-[0.25em] text-n500 dark:text-n200">{dict.projects.eyebrow}</p>
+            <h2 class="break-words text-3xl font-bold md:text-4xl">{dict.projects.sectionTitle}</h2>
+            <p class="text-n700 dark:text-n200 leading-7">{dict.projects.sectionDescription}</p>
+        </div>
+    )}
+
+    <div class="grid grid-cols-1 gap-6">
+        {projects.map((project, index) => (
+            <ProjectCard
+                project={project}
+                href={getLocalizedPath(lang, `/projects/${project.slug}`)}
+                buttonLabel={dict.actions.viewMore}
+                placeholderLabel={dict.projects.placeholderBadge}
+                featured={index === 0}
+            />
+        ))}
+    </div>
+</section>

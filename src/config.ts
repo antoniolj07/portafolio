@@ -1,79 +1,72 @@
-export const SITE = {
-    website: "https://simple-portfolio.vicbox.dev", // replace this with your deployed domain
-    title: "Simple Portfolio",
-    description: "A simple but beautiful portfolio created with Astro",
-    tags: ["portfolio", "Resume cv", "Astro"],
-    ogImage: "/og-image.webp",
-    logo: "logo",
-    logoText: "Portfolio",
-    lang: "en",
-    favicon: "/favicon.png",
-    repository: "https://github.com/vito8916/simple-portfolio.git",
-    author: "Victor Alvarado",
-    profile: "https://victoralvarado.dev/",
-}
+import { appConfig, getAbsoluteUrl as getConfiguredAbsoluteUrl, withTrailingSlash as withConfiguredTrailingSlash } from "../site-config.mjs";
 
-export const ME = {
-    name: "VicBox Dot Dev",
-    profession: "Software Engineer | Full Stack Developer",
-    profileImage: "pp2.png",
-    profileFacts: [
-        {
-            value: 10,
-            description: "Years of Experience"
-        },
-        {
-            value: 5,
-            description: "Completed Projects"
-        },
-        {
-            value: 4,
-            description: "Satisfied Clients"
-        }
-    ],
+const defaultOgImage = appConfig.metadata.openGraph.images[0];
+
+export const SITE = {
+    name: appConfig.site.name,
+    website: appConfig.site.site,
+    base: appConfig.site.base,
+    trailingSlash: appConfig.site.trailingSlash,
+    googleSiteVerificationId: appConfig.site.googleSiteVerificationId ?? "",
+    ogImage: defaultOgImage?.url ?? "/og-image.webp",
+    logo: "logo",
+    logoText: "Jorge",
+    lang: appConfig.i18n.language,
+    textDirection: appConfig.i18n.textDirection,
+    favicon: "/favicon.png",
+    repository: "",
+};
+
+export const METADATA = appConfig.metadata;
+export const UI = appConfig.ui;
+export const ANALYTICS = appConfig.analytics;
+export const APPS = appConfig.apps;
+export const I18N_CONFIG = appConfig.i18n;
+
+export const PROFILE = {
+    name: "Jorge",
+    profileImage: "/img/jorge/Perfil.jpeg",
     contactInfo: {
-        email: "vicbox.dev@vicbox.dev",
-        linkedin: "https://www.linkedin.com/in/victor-alvaradohn",
-        resumeDoc: "resume.pdf",
+        email: "",
+        linkedin: "",
+        resumeDoc: "",
     },
-    aboutMe: "I am a software engineer with a passion for web development. I have experience in building web " + "applications using modern technologies. I am a self-taught developer who enjoys learning new things and " + "sharing knowledge with others.",
-}
+};
 
 export const SOCIALS = [
     {
-        name: "Twitter",
-        url: "https://twitter.com/vicbox.dev",
-        icon: "twitter-x-fill",
-        show: true
-    },
-    {
-        name: "Facebook",
-        url: "https://www.facebook.com/vicbox.dev",
-        icon: "facebook-fill",
-        show: false
-    },
-    {
-        name: "Instagram",
-        url: "https://www.instagram.com/vicbox.dev",
-        icon: "instagram-fill",
-        show: true
-    },
-    {
-        name: "Youtube",
-        url: "https://www.youtube.com/vicbox.dev",
-        icon: "youtube-fill",
-        show: true
-    },
-    {
-        name: "TikTok",
-        url: "https://tiktok.com/vicbox.dev",
-        icon: "tik-fill",
-        show: false
+        name: "LinkedIn",
+        url: "",
+        icon: "github-fill",
+        show: false,
     },
     {
         name: "GitHub",
-        url: "https://github.com/vicbox.dev",
+        url: "",
         icon: "github-fill",
-        show: true
-    }
-]
+        show: false,
+    },
+    {
+        name: "Instagram",
+        url: "",
+        icon: "instagram-fill",
+        show: false,
+    },
+];
+
+export function withTrailingSlash(pathname: string) {
+    return withConfiguredTrailingSlash(pathname, SITE.trailingSlash);
+}
+
+export function getAbsoluteUrl(pathname = "/") {
+    return getConfiguredAbsoluteUrl(pathname, SITE.website);
+}
+
+export function getCanonicalUrl(pathname: string) {
+    return getAbsoluteUrl(withTrailingSlash(pathname));
+}
+
+export function getRobotsContent() {
+    const { index, follow } = METADATA.robots;
+    return `${index ? "index" : "noindex"},${follow ? "follow" : "nofollow"}`;
+}

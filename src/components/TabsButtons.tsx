@@ -1,11 +1,20 @@
+import type { ReactNode } from "react";
+
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "./ui/tabs.tsx";
 
-const TabsButtons = (props:any) => {
+interface Props {
+    portfolioLabel: string;
+    aboutLabel: string;
+    portfolio?: ReactNode;
+    about?: ReactNode;
+}
+
+const TabsButtons = (props: Props) => {
     return (
-        <Tabs defaultValue="portfolio" className="w-full ">
-            <TabsList className={"bg-white dark:bg-n700  w-full px-2 py-8 rounded-xl"}>
-                <TabsTrigger className={"w-full py-4 rounded-lg dark:data-[state=active]:text-primary-dark data-[state=active]:bg-light-theme dark:data-[state=active]:bg-dark-theme"} value="portfolio">Portfolio</TabsTrigger>
-                <TabsTrigger className={"w-full py-4 rounded-lg dark:data-[state=active]:text-primary-dark data-[state=active]:bg-light-theme dark:data-[state=active]:bg-dark-theme"} value="about">About</TabsTrigger>
+        <Tabs defaultValue="portfolio" className="w-full">
+            <TabsList className={"grid h-auto w-full grid-cols-2 overflow-hidden rounded-2xl border border-neutral-200 bg-white/80 p-1.5 shadow-sm dark:border-white/10 dark:bg-n700/80"}>
+                <TabsTrigger className={"min-w-0 rounded-xl py-3 font-semibold data-[state=active]:bg-light-theme data-[state=active]:text-n900 dark:data-[state=active]:bg-dark-theme dark:data-[state=active]:text-primary-dark"} value="portfolio">{props.portfolioLabel}</TabsTrigger>
+                <TabsTrigger className={"min-w-0 rounded-xl py-3 font-semibold data-[state=active]:bg-light-theme data-[state=active]:text-n900 dark:data-[state=active]:bg-dark-theme dark:data-[state=active]:text-primary-dark"} value="about">{props.aboutLabel}</TabsTrigger>
             </TabsList>
             <TabsContent value="portfolio">
                 {props.portfolio}

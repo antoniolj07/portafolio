@@ -8,33 +8,15 @@ interface Education {
     currentUni: boolean;
 }
 
-const  education: Education[] = [
+const education: Education[] = [
     {
-        title: "General English",
-        startDate: "2024-09-01",
+        title: "Ingenieria en Ciencias y Sistemas",
+        startDate: "2019-01-01",
         endDate: "",
-        school: "University Name",
-        location: "United States",
-        description: "Developed and maintained web applications using React, NodeJs, and MongoDB.",
+        school: "Universidad de San Carlos de Guatemala (USAC)",
+        location: "Guatemala",
+        description: "Estudiante de Ingenieria en Ciencias y Sistemas en la Universidad de San Carlos de Guatemala, con pensum de estudios cerrado y Ejercicio Profesional Supervisado (EPS) finalizado. Actualmente en proceso de graduacion, pendiente de realizar el examen privado. Durante la carrera he fortalecido conocimientos en desarrollo de software, bases de datos, arquitectura de sistemas, redes, ingenieria de software y analisis de soluciones tecnologicas, complementandolos con experiencia profesional en desarrollo de aplicaciones y sistemas empresariales desde 2020. Como parte de mi EPS desarrolle e implemente modulos de adquisiciones, inventario y preservacion para el sistema de gestion de la Biblioteca Central de la Universidad de San Carlos de Guatemala.",
         currentUni: true,
-    },
-    {
-        title: "Bachelor of Science in Computer Science",
-        startDate: "2014-09-01",
-        endDate: "2018-06-30",
-        school: "University Name",
-        location: "United States",
-        description: "Developed and maintained web applications using React, NodeJs, and MongoDB.",
-        currentUni: false,
-    },
-    {
-        title: "Bachelor of Science in Computer Science",
-        startDate: "2012-09-01",
-        endDate: "2013-06-30",
-        school: "University Name",
-        location: "United States",
-        description: "Developed and maintained web applications using React, NodeJs, and MongoDB.",
-        currentUni: false,
     },
 ];
 

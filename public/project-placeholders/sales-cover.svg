@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" fill="none">
+  <rect width="1200" height="720" fill="#FFF5EB"/>
+  <rect x="64" y="64" width="1072" height="592" rx="36" fill="#FFFFFF"/>
+  <rect x="120" y="120" width="420" height="480" rx="28" fill="#FFE7C8"/>
+  <rect x="200" y="204" width="70" height="260" rx="24" fill="#123524"/>
+  <rect x="306" y="256" width="70" height="208" rx="24" fill="#2F6A4E"/>
+  <rect x="412" y="162" width="70" height="302" rx="24" fill="#F0A83E"/>
+  <rect x="620" y="128" width="430" height="92" rx="24" fill="#123524"/>
+  <rect x="620" y="258" width="372" height="24" rx="12" fill="#F0B761"/>
+  <rect x="620" y="306" width="286" height="24" rx="12" fill="#FFD89F"/>
+  <rect x="620" y="378" width="430" height="174" rx="28" fill="#FFF1DD"/>
+  <circle cx="720" cy="466" r="40" fill="#123524"/>
+  <circle cx="840" cy="450" r="28" fill="#F0A83E"/>
+  <circle cx="930" cy="488" r="34" fill="#2F6A4E"/>
+  <text x="120" y="620" fill="#123524" font-family="Arial, sans-serif" font-size="42" font-weight="700">Sales Ops</text>
+  <text x="120" y="666" fill="#6A573D" font-family="Arial, sans-serif" font-size="26">Field agents and market research placeholder</text>
+</svg>

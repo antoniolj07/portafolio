@@ -1,0 +1,42 @@
+site:
+  name: Jorge Portfolio
+  # Actualiza este valor cuando tengas el dominio final del portafolio.
+  site: 'https://tu-dominio.com'
+  base: '/'
+  trailingSlash: true
+  googleSiteVerificationId: ''
+
+metadata:
+  title:
+    default: Jorge - Software Engineer
+    template: '%s - Jorge'
+  description: 'Portafolio profesional de Jorge, software engineer enfocado en backend, full-stack development, integraciones y soluciones orientadas al negocio.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Jorge Portfolio
+    images:
+      - url: '/og-image.webp'
+        width: 1200
+        height: 628
+        alt: 'Jorge - Software Engineer Portfolio'
+    type: website
+  twitter:
+    cardType: summary_large_image
+
+i18n:
+  language: es
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: true
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+
+ui:
+  theme: 'system'

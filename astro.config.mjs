@@ -10,9 +10,13 @@ import icon from "astro-icon";
 
 import sitemap from "@astrojs/sitemap";
 
+import { appConfig } from "./site-config.mjs";
+
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://simple-portfolio.vicbox.dev/',
+    site: appConfig.site.site,
+    base: appConfig.site.base,
+    trailingSlash: appConfig.site.trailingSlash ? "always" : "never",
     integrations: [mdx(), react(), tailwind({
         applyBaseStyles: false,
     }), icon(), sitemap()],

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" fill="none">
+  <rect width="1200" height="720" fill="#F5F7FA"/>
+  <rect x="56" y="56" width="1088" height="608" rx="36" fill="#FFFFFF"/>
+  <rect x="108" y="120" width="984" height="72" rx="24" fill="#123524"/>
+  <rect x="108" y="240" width="288" height="148" rx="28" fill="#E4EAEF"/>
+  <rect x="420" y="240" width="288" height="148" rx="28" fill="#EDF3F8"/>
+  <rect x="732" y="240" width="360" height="148" rx="28" fill="#E4EAEF"/>
+  <rect x="108" y="428" width="984" height="176" rx="28" fill="#F5F7FA"/>
+  <text x="108" y="642" fill="#4D6170" font-family="Arial, sans-serif" font-size="28">Dashboard placeholder</text>
+</svg>

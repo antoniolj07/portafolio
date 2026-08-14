@@ -1,14 +1,18 @@
 ---
-// config import
-import { ME } from '@/config'
+import { getDictionary, type Lang } from "@/i18n";
 
-const { profileFacts } = ME
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const { profile } = getDictionary(lang);
 ---
 
-<div class="flex justify-between gap-1 text-center">
-    {profileFacts.map((fact) => (
-        <div class="flex flex-col items-center justify-center gap-2">
-            <h3 class="text-md font-bold text-n900 dark:text-n200">{`${fact.value}+`}</h3>
+<div class="grid grid-cols-1 gap-5 text-center sm:grid-cols-3">
+    {profile.facts.map((fact) => (
+        <div class="flex min-w-0 flex-col items-center justify-center gap-2">
+            <h3 class="text-md font-bold text-n900 dark:text-n200">{fact.value}</h3>
             <p class="text-sm text-n700 dark:text-n200">{fact.description}</p>
         </div>
     ))}

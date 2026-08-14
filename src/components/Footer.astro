@@ -1,6 +1,10 @@
 ---
+import { getDictionary, getLangFromPath } from "@/i18n";
 
+const lang = getLangFromPath(Astro.url.pathname);
+const dict = getDictionary(lang);
 ---
+
 <footer class="container py-4 text-center">
-  <p>Made with ❤️ by <a href="https://vicbox.dev" target="_blank" rel="noopener noreferrer">VicBox</a>.</p>
+  <p>{dict.site.footer}</p>
 </footer>

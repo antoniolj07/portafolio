@@ -1,41 +1,24 @@
 ---
-// astro imports
-import {getCollection} from "astro:content";
+import FeaturedProjects from "./FeaturedProjects.astro";
 
-// components imports
-import ProjectCard from "./ProjectCard.astro";
-import {buttonVariants} from "./ui/button";
+import { getDictionary, type Lang } from "@/i18n";
 
-const allProjects = (await getCollection('projects'))
-    .sort((a, b) => b.data.startDate.getTime() - a.data.startDate.getTime());;
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const dict = getDictionary(lang);
 ---
 
-<!--Grid section to show the projects in to columns -->
 <>
-    <section class="mt-10 px-4 w-full">
-        <div class="mb-4">
-            <h2 class="text-3xl font-bold mb-4">Projects</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {
-                allProjects.map((project) => (
-                        <ProjectCard
-                                id={project.id}
-                                title={project.data.title}
-                                summary={project.data.summary}
-                                tags={project.data.tags}
-                                cover={project.data.cover}
-                        />
-                ))
-            }
+    <FeaturedProjects lang={lang} />
+    <section class="mt-10 w-full">
+        <div class="rounded-[28px] border border-dashed border-neutral-300 dark:border-n700 p-8 bg-white/70 dark:bg-n700/40">
+            <h2 class="text-2xl font-bold mb-3">{dict.projects.ctaTitle}</h2>
+            <p class="max-w-3xl text-n700 dark:text-n200 leading-7">
+                {dict.projects.ctaDescription}
+            </p>
         </div>
     </section>
-    <div class="flex justify-center mt-10">
-        <a href="/projects" class={buttonVariants({ variant: "default" }) + "text-n700 bg-primary-light dark:bg-primary-dark hover:bg-primary-hover-light dark:hover:bg-primary-hover-dark"}>
-            See All Projects
-        </a>
-    </div>
 </>
-
-
-

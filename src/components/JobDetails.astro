@@ -1,8 +1,6 @@
 ---
-// component imports
 import {Badge} from "./ui/badge";
 
-// library imports
 import {formatDatetime} from "../lib/utils";
 
 interface Job {
@@ -10,35 +8,43 @@ interface Job {
     company: string;
     location: string;
     startDate: string;
-    endDate: string;
+    endDate?: string;
+    description?: string;
     goals: string[];
     currentJob: boolean;
 }
 
-const {jobData} = Astro.props;  // Ensure correct typing for the props
+interface Props {
+    jobData: Job;
+    currentLabel: string;
+    locale: string;
+}
+
+const {jobData, currentLabel, locale} = Astro.props as Props;
 const {
     title,
     company,
     location,
     startDate,
     endDate,
+    description,
     goals,
     currentJob,
-} = jobData as Job;
-
+} = jobData;
 ---
 
 <div class="flex flex-col gap-2">
     <h3 class="text-xl font-bold">{title}</h3>
-    <div class="flex items-center gap-2">
-        <Badge className="bg-primary-light dark:bg-primary-dark w-fit rounded-md whitespace-nowrap	">
-            {formatDatetime(startDate)} - {currentJob ? "Present" : formatDatetime(endDate)}
+    <div class="flex items-center gap-2 flex-wrap">
+        <Badge className="bg-primary-light dark:bg-primary-dark w-fit rounded-md whitespace-nowrap">
+            {formatDatetime(startDate, locale)} - {currentJob ? currentLabel : formatDatetime(endDate, locale)}
         </Badge>
         <p class="truncate">{company}</p>
         <span class="text-sm font-bold">/</span>
         <p class="truncate">{location}</p>
     </div>
-    <ul style="list-style: disc;">
+    {description && <p>{description}</p>}
+    <ul style="list-style: disc;" class="pl-5 space-y-2">
         {goals.map((goal: string) => (
                 <li>{goal}</li>
         ))}

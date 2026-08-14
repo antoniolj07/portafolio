@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" fill="none">
+  <rect width="1200" height="720" fill="#F3F7F5"/>
+  <rect x="120" y="300" width="220" height="120" rx="28" fill="#D7E8DF"/>
+  <rect x="490" y="300" width="220" height="120" rx="28" fill="#123524"/>
+  <rect x="860" y="300" width="220" height="120" rx="28" fill="#A6C8B5"/>
+  <path d="M340 360H490" stroke="#4A715D" stroke-width="14" stroke-linecap="round"/>
+  <path d="M710 360H860" stroke="#4A715D" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="415" cy="360" r="18" fill="#4A715D"/>
+  <circle cx="785" cy="360" r="18" fill="#4A715D"/>
+  <text x="120" y="212" fill="#123524" font-family="Arial, sans-serif" font-size="44" font-weight="700">Workflow Placeholder</text>
+  <text x="120" y="260" fill="#4A715D" font-family="Arial, sans-serif" font-size="26">Ideal for operations, forms, routes, and process diagrams</text>
+</svg>
