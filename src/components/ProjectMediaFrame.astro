@@ -15,6 +15,8 @@ const frame = image.frame ?? "plain";
 const darkSrc = image.darkSrc ?? "";
 const hasDarkImage = Boolean(darkSrc);
 const label = image.label ?? urlLabel;
+const caption = image.caption;
+const lightboxCaption = caption ?? label ?? image.alt;
 const imageSrc = withBasePath(image.src);
 const themedDarkSrc = hasDarkImage ? withBasePath(darkSrc) : "";
 
@@ -63,35 +65,71 @@ const plainImageClass = cn(
                 <span class="block truncate">{label ?? "syncdistro.syncfreight.com"}</span>
             </div>
         </div>
-        <div class={browserScreenClass}>
+        <button
+            type="button"
+            class={cn(browserScreenClass, "block w-full cursor-zoom-in text-left")}
+            data-lightbox-src={imageSrc}
+            data-lightbox-dark-src={themedDarkSrc}
+            data-lightbox-alt={image.alt}
+            data-lightbox-caption={lightboxCaption}
+            aria-label={`Open ${image.alt}`}
+        >
             <img src={imageSrc} alt={image.alt} class={cn("h-full w-full object-contain", hasDarkImage && "dark:hidden")} loading="lazy" />
             {hasDarkImage && (
                 <img src={themedDarkSrc} alt={image.alt} class="hidden h-full w-full object-contain dark:block" loading="lazy" />
             )}
-        </div>
+        </button>
+        {caption && variant !== "card" && (
+            <figcaption class="border-t border-neutral-200/80 bg-white/90 px-5 py-4 text-sm leading-6 text-n700 dark:border-white/10 dark:bg-white/[0.03] dark:text-n200">
+                {caption}
+            </figcaption>
+        )}
     </figure>
 ) : frame === "phone" ? (
     <figure class={phoneFigureClass}>
         <div class="relative rounded-[2.3rem] border border-white/20 bg-[#0b1118] p-2 shadow-[0_24px_70px_rgba(15,23,42,0.22)] dark:border-white/10">
             <div class="absolute left-1/2 top-3 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[#0b1118]"></div>
-            <div class="relative aspect-[9/19.5] overflow-hidden rounded-[1.75rem] bg-white dark:bg-[#071117]">
+            <button
+                type="button"
+                class="relative block aspect-[9/19.5] w-full cursor-zoom-in overflow-hidden rounded-[1.75rem] bg-white text-left dark:bg-[#071117]"
+                data-lightbox-src={imageSrc}
+                data-lightbox-dark-src={themedDarkSrc}
+                data-lightbox-alt={image.alt}
+                data-lightbox-caption={lightboxCaption}
+                aria-label={`Open ${image.alt}`}
+            >
                 <img src={imageSrc} alt={image.alt} class={cn("h-full w-full object-cover", hasDarkImage && "dark:hidden")} loading="lazy" />
                 {hasDarkImage && (
                     <img src={themedDarkSrc} alt={image.alt} class="hidden h-full w-full object-cover dark:block" loading="lazy" />
                 )}
-            </div>
+            </button>
         </div>
-        {label && (
+        {(caption || label) && (
             <figcaption class="mt-3 text-center text-xs font-semibold uppercase tracking-[0.16em] text-n500 dark:text-n200">
-                {label}
+                {caption ?? label}
             </figcaption>
         )}
     </figure>
 ) : (
     <figure class={plainFigureClass}>
-        <img src={imageSrc} alt={image.alt} class={plainImageClass} loading="lazy" />
-        {hasDarkImage && (
-            <img src={themedDarkSrc} alt={image.alt} class={cn("hidden h-full w-full object-contain dark:block", variant === "card" ? "p-4 md:p-6" : "max-h-[720px] p-4 md:p-6")} loading="lazy" />
+        <button
+            type="button"
+            class="block h-full w-full cursor-zoom-in text-left"
+            data-lightbox-src={imageSrc}
+            data-lightbox-dark-src={themedDarkSrc}
+            data-lightbox-alt={image.alt}
+            data-lightbox-caption={lightboxCaption}
+            aria-label={`Open ${image.alt}`}
+        >
+            <img src={imageSrc} alt={image.alt} class={plainImageClass} loading="lazy" />
+            {hasDarkImage && (
+                <img src={themedDarkSrc} alt={image.alt} class={cn("hidden h-full w-full object-contain dark:block", variant === "card" ? "p-4 md:p-6" : "max-h-[720px] p-4 md:p-6")} loading="lazy" />
+            )}
+        </button>
+        {caption && variant !== "card" && (
+            <figcaption class="border-t border-neutral-200 bg-white/90 px-5 py-4 text-sm leading-6 text-n700 dark:border-n700 dark:bg-n700/80 dark:text-n200">
+                {caption}
+            </figcaption>
         )}
     </figure>
 )}

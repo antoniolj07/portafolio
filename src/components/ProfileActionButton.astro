@@ -15,7 +15,7 @@ const dict = getDictionary(lang);
 const resume = PROFILE.contactInfo.resumeDoc ? "/" + PROFILE.contactInfo.resumeDoc : "";
 const {linkedin, email} = PROFILE.contactInfo;
 ---
-<div class="profile-action-buttons w-full flex gap-2">
+<div class="profile-action-buttons w-full flex gap-2" data-reveal="zoom">
     {PROFILE.contactInfo.resumeDoc && <Button
             data-cv={resume}
             id="cvBtn"

@@ -81,19 +81,217 @@ const themePreference = UI.theme;
     <script is:inline define:vars={{ themePreference }}>
         (() => {
             const storageKey = "portfolio-theme";
-            const root = document.documentElement;
             const lockedTheme = themePreference === "light:only" || themePreference === "dark:only";
-            const storedTheme = localStorage.getItem(storageKey);
-            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            const configuredTheme = themePreference === "system"
-                ? systemTheme
-                : themePreference.replace(":only", "");
-            const theme = !lockedTheme && (storedTheme === "light" || storedTheme === "dark")
-                ? storedTheme
-                : configuredTheme;
 
-            root.classList.toggle("dark", theme === "dark");
-            root.style.colorScheme = theme;
+            const getStoredTheme = () => {
+                try {
+                    const theme = localStorage.getItem(storageKey);
+                    return theme === "light" || theme === "dark" ? theme : null;
+                } catch {
+                    return null;
+                }
+            };
+
+            const getSystemTheme = () => {
+                return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            };
+
+            const resolveTheme = () => {
+                const configuredTheme = themePreference === "system"
+                    ? getSystemTheme()
+                    : themePreference.replace(":only", "");
+                return !lockedTheme && getStoredTheme()
+                    ? getStoredTheme()
+                    : configuredTheme;
+            };
+
+            const applyTheme = (targetDocument = document) => {
+                const theme = resolveTheme();
+                const root = targetDocument.documentElement;
+
+                root.classList.toggle("dark", theme === "dark");
+                root.style.colorScheme = theme;
+            };
+
+            applyTheme();
+
+            if (!window.__portfolioThemeRouterBound) {
+                document.addEventListener("astro:before-swap", (event) => {
+                    if (event.newDocument) {
+                        applyTheme(event.newDocument);
+                    }
+                });
+                document.addEventListener("astro:after-swap", () => applyTheme());
+                window.__portfolioThemeRouterBound = true;
+            }
+        })();
+    </script>
+    <script is:inline>
+        (() => {
+            const revealSelector = "[data-reveal]";
+            const lightboxTriggerSelector = "[data-lightbox-src]";
+            let revealFrame = 0;
+
+            const prefersReducedMotion = () => {
+                return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            };
+
+            const bindScrollReveals = () => {
+                const elements = [...document.querySelectorAll(revealSelector)];
+
+                if (prefersReducedMotion()) {
+                    elements.forEach((element) => element.classList.add("is-visible"));
+                    return;
+                }
+
+                window.__portfolioRevealObserver?.disconnect();
+                window.__portfolioRevealObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+
+                        entry.target.classList.add("is-visible");
+                        window.__portfolioRevealObserver?.unobserve(entry.target);
+                    });
+                }, {
+                    rootMargin: "0px 0px 160px 0px",
+                    threshold: 0.01,
+                });
+
+                elements.forEach((element, index) => {
+                    if (!element.style.getPropertyValue("--reveal-delay")) {
+                        element.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 80}ms`);
+                    }
+
+                    const rect = element.getBoundingClientRect();
+                    const isNearViewport = rect.top < window.innerHeight + 160 && rect.bottom > -160;
+
+                    if (isNearViewport) {
+                        element.classList.add("is-visible");
+                        return;
+                    }
+
+                    window.__portfolioRevealObserver.observe(element);
+                });
+            };
+
+            const scheduleScrollReveals = () => {
+                cancelAnimationFrame(revealFrame);
+                revealFrame = requestAnimationFrame(bindScrollReveals);
+            };
+
+            const bindRevealMutationObserver = () => {
+                window.__portfolioRevealMutationObserver?.disconnect();
+                window.__portfolioRevealMutationObserver = new MutationObserver((mutations) => {
+                    const shouldRebind = mutations.some((mutation) => {
+                        if (mutation.type === "attributes") {
+                            return mutation.attributeName === "hidden" || mutation.attributeName === "data-state";
+                        }
+
+                        return [...mutation.addedNodes].some((node) => {
+                            if (!(node instanceof Element)) return false;
+                            return node.matches(revealSelector) || Boolean(node.querySelector(revealSelector));
+                        });
+                    });
+
+                    if (shouldRebind) {
+                        scheduleScrollReveals();
+                    }
+                });
+
+                window.__portfolioRevealMutationObserver.observe(document.body, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeFilter: ["hidden", "data-state"],
+                });
+            };
+
+            const getLightboxElements = () => {
+                return {
+                    root: document.getElementById("portfolio-lightbox"),
+                    image: document.getElementById("portfolio-lightbox-image"),
+                    caption: document.getElementById("portfolio-lightbox-caption"),
+                };
+            };
+
+            const closeLightbox = () => {
+                const { root, image, caption } = getLightboxElements();
+                if (!root || !image || !caption) return;
+
+                root.classList.add("hidden");
+                root.setAttribute("aria-hidden", "true");
+                image.removeAttribute("src");
+                image.setAttribute("alt", "");
+                caption.textContent = "";
+                document.documentElement.classList.remove("lightbox-open");
+            };
+
+            const openLightbox = (trigger) => {
+                const { root, image, caption } = getLightboxElements();
+                if (!root || !image || !caption) return;
+
+                const lightSrc = trigger.dataset.lightboxSrc;
+                const darkSrc = trigger.dataset.lightboxDarkSrc;
+                const shouldUseDarkImage = document.documentElement.classList.contains("dark") && darkSrc;
+                const src = shouldUseDarkImage ? darkSrc : lightSrc;
+
+                if (!src) return;
+
+                image.setAttribute("src", src);
+                image.setAttribute("alt", trigger.dataset.lightboxAlt ?? "");
+                caption.textContent = trigger.dataset.lightboxCaption ?? trigger.dataset.lightboxAlt ?? "";
+                root.classList.remove("hidden");
+                root.setAttribute("aria-hidden", "false");
+                document.documentElement.classList.add("lightbox-open");
+                root.querySelector("[data-lightbox-close]")?.focus();
+            };
+
+            const bindPortfolioInteractions = () => {
+                bindScrollReveals();
+                bindRevealMutationObserver();
+
+                if (window.__portfolioLightboxBound) return;
+
+                document.addEventListener("click", (event) => {
+                    const target = event.target;
+                    const closeTrigger = target.closest?.("[data-lightbox-close]");
+                    const imageTrigger = target.closest?.(lightboxTriggerSelector);
+                    const tabTrigger = target.closest?.("[role='tab']");
+
+                    if (closeTrigger) {
+                        closeLightbox();
+                        return;
+                    }
+
+                    if (imageTrigger) {
+                        openLightbox(imageTrigger);
+                    }
+
+                    if (tabTrigger) {
+                        setTimeout(scheduleScrollReveals, 0);
+                    }
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") {
+                        closeLightbox();
+                    }
+                });
+
+                window.__portfolioLightboxBound = true;
+            };
+
+            const schedulePortfolioInteractions = () => {
+                requestAnimationFrame(bindPortfolioInteractions);
+            };
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", schedulePortfolioInteractions, { once: true });
+            } else {
+                schedulePortfolioInteractions();
+            }
+
+            document.addEventListener("astro:after-swap", schedulePortfolioInteractions);
         })();
     </script>
     <ClientRouter/>
@@ -104,5 +302,40 @@ const themePreference = UI.theme;
     <slot/>
 </main>
 <Footer/>
+<div
+    id="portfolio-lightbox"
+    class="fixed inset-0 z-50 hidden bg-n900/65 px-4 py-6 backdrop-blur-xl dark:bg-black/75 sm:px-6"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-label="Image preview"
+>
+    <button
+        type="button"
+        class="absolute inset-0 cursor-zoom-out"
+        aria-label="Close image preview"
+        data-lightbox-close
+    ></button>
+    <div class="relative mx-auto flex h-full max-w-7xl flex-col items-center justify-center gap-4">
+        <button
+            type="button"
+            class="absolute right-0 top-0 z-10 inline-grid h-11 w-11 place-items-center rounded-full border border-white/30 bg-white/90 p-0 text-n900 shadow-lg transition-colors hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-n700/90 dark:text-white"
+            aria-label="Close image preview"
+            data-lightbox-close
+        >
+            <span aria-hidden="true" class="modal-close-icon"></span>
+        </button>
+        <img
+            id="portfolio-lightbox-image"
+            src=""
+            alt=""
+            class="max-h-[82vh] w-auto max-w-full rounded-[28px] border border-white/20 bg-white object-contain shadow-[0_30px_120px_rgba(0,0,0,0.45)] dark:bg-n700"
+        />
+        <p
+            id="portfolio-lightbox-caption"
+            class="max-w-4xl text-center text-sm leading-6 text-white/90"
+        ></p>
+    </div>
+</div>
 </body>
 </html>

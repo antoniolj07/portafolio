@@ -7,9 +7,9 @@ interface Language {
 
 const languages: Language[] = [
     {
-        name: "Espanol",
+        name: "Español",
         level: "Nativo",
-        description: "Comunicacion oral y escrita fluida",
+        description: "Comunicación oral y escrita fluida",
         show: true
     },
 ];

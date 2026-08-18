@@ -19,7 +19,7 @@ export const SITE = {
     logoText: "Jorge",
     lang: appConfig.i18n.language,
     textDirection: appConfig.i18n.textDirection,
-    favicon: "/favicon.png",
+    favicon: "/favicon.svg",
     repository: "",
 };
 
@@ -30,7 +30,7 @@ export const APPS = appConfig.apps;
 export const I18N_CONFIG = appConfig.i18n;
 
 export const PROFILE = {
-    name: "Jorge",
+    name: "Jorge Antonio Pérez Ordóñez",
     profileImage: "/img/jorge/Perfil.jpeg",
     contactInfo: {
         email: "",

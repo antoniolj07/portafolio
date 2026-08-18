@@ -12,7 +12,7 @@ const { lang } = Astro.props as Props;
 const { profile } = getDictionary(lang);
 ---
 
-<div class="mt-5 flex w-full items-center justify-start">
+<div class="mt-5 flex w-full items-center justify-start" data-reveal="fade-right">
     <div class="flex w-full min-w-0 flex-col items-center gap-5 sm:flex-row sm:gap-6">
         <div class="w-[132px] h-[132px] md:w-[152px] md:h-[152px] shrink-0 rounded-full border-[3px] border-primary-light dark:border-primary-dark p-[3px] flex items-center justify-center">
             <ProfileImage name={profile.name} />

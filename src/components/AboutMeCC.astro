@@ -15,10 +15,10 @@ const visibleLanguages = profile.languages.filter((language) => language.show);
 ---
 
 <div class="relative flex flex-col gap-8 text-n700 dark:text-n200 w-full mt-10">
-    <div class="mb-4">
+    <div class="mb-4" data-reveal="fade-up">
         <p>{profile.aboutMe}</p>
     </div>
-    <div class="mb-4">
+    <div class="mb-4" data-reveal="fade-up">
         <h2 class="text-3xl font-bold mb-4">{profile.experienceTitle}</h2>
         <div class="flex flex-col gap-6">
             {profile.workExperience.map((job) => (
@@ -26,7 +26,7 @@ const visibleLanguages = profile.languages.filter((language) => language.show);
             ))}
         </div>
     </div>
-    <div class="mb-4">
+    <div class="mb-4" data-reveal="fade-up">
         <h2 class="text-3xl font-bold mb-4">{profile.educationTitle}</h2>
         <div class="flex flex-col gap-6">
             {profile.education.map((edu) => (
@@ -34,7 +34,7 @@ const visibleLanguages = profile.languages.filter((language) => language.show);
             ))}
         </div>
     </div>
-    <div class="mb-4">
+    <div class="mb-4" data-reveal="fade-up">
         <h2 class="text-3xl font-bold mb-4">{profile.technicalSkillsTitle}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {profile.technicalSkills.map((skill) => (
@@ -42,7 +42,7 @@ const visibleLanguages = profile.languages.filter((language) => language.show);
             ))}
         </div>
     </div>
-    <div class="mb-4">
+    <div class="mb-4" data-reveal="fade-up">
         <h2 class="text-2xl font-bold mb-4">{profile.softSkillsTitle}</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             {profile.softSkills.map((skill) => (
@@ -50,7 +50,7 @@ const visibleLanguages = profile.languages.filter((language) => language.show);
             ))}
         </div>
     </div>
-    {visibleLanguages.length > 0 && <div class="mb-4">
+    {visibleLanguages.length > 0 && <div class="mb-4" data-reveal="fade-up">
         <h2 class="text-2xl font-bold mb-4">{profile.languagesTitle}</h2>
         <div class="flex flex-col gap-2">
             {visibleLanguages.map((language) => (

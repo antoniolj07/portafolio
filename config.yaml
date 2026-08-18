@@ -1,5 +1,5 @@
 site:
-  name: Jorge Portfolio
+  name: Jorge Antonio Pérez Ordóñez Portfolio
   # GitHub Pages project site:
   # https://antoniolj07.github.io/portafolio/
   #
@@ -12,19 +12,19 @@ site:
 
 metadata:
   title:
-    default: Jorge - Software Engineer
-    template: '%s - Jorge'
-  description: 'Portafolio profesional de Jorge, software engineer enfocado en backend, full-stack development, integraciones y soluciones orientadas al negocio.'
+    default: Jorge Antonio Pérez Ordóñez - Software Engineer
+    template: '%s - Jorge Antonio Pérez Ordóñez'
+  description: 'Portafolio profesional de Jorge Antonio Pérez Ordóñez, Software Engineer enfocado en backend, desarrollo full-stack, integraciones y soluciones orientadas al negocio.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Jorge Portfolio
+    site_name: Jorge Antonio Pérez Ordóñez Portfolio
     images:
       - url: '/og-image.webp'
         width: 1200
         height: 628
-        alt: 'Jorge - Software Engineer Portfolio'
+        alt: 'Jorge Antonio Pérez Ordóñez - Software Engineer Portfolio'
     type: website
   twitter:
     cardType: summary_large_image

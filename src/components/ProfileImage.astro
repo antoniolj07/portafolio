@@ -24,14 +24,14 @@ if (!isPublicImage && !assetImages[assetImagePath]) {
 <div class="w-full h-full rounded-full overflow-hidden">
     {isPublicImage ? (
         <img
-            class="block w-full h-full object-cover object-[center_24%]"
+            class="block w-full h-full object-cover object-[center_40%]"
             src={publicProfileImage}
             alt={`Foto de perfil de ${name}`}
             loading="eager"
         />
     ) : (
         <Image
-            class="block w-full h-full object-cover object-[center_24%]"
+            class="block w-full h-full object-cover object-[center_40%]"
             src={assetImages[assetImagePath]()}
             alt={`Foto de perfil de ${name}`}
             loading="eager"

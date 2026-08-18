@@ -44,6 +44,18 @@ export interface LanguageItem {
     show: boolean;
 }
 
+export interface OutstandingStoryItem {
+    src: string;
+    alt: string;
+    caption: string;
+}
+
+export interface OutstandingStory {
+    title: string;
+    cover: string;
+    items: OutstandingStoryItem[];
+}
+
 export type ProjectImageFrame = "browser" | "phone" | "plain";
 
 export interface ProjectImage {
@@ -52,6 +64,7 @@ export interface ProjectImage {
     darkSrc?: string;
     frame?: ProjectImageFrame;
     label?: string;
+    caption?: string;
 }
 
 export interface ProjectEntry {
@@ -90,6 +103,15 @@ export interface LocaleDictionary {
         tabs: {
             portfolio: string;
             about: string;
+        };
+        outstanding: {
+            ariaLabel: string;
+            closeLabel: string;
+            nextLabel: string;
+            previousLabel: string;
+            pauseLabel: string;
+            playLabel: string;
+            stories: OutstandingStory[];
         };
     };
     profile: {

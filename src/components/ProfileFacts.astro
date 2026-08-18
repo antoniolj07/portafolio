@@ -9,9 +9,9 @@ const { lang } = Astro.props as Props;
 const { profile } = getDictionary(lang);
 ---
 
-<div class="grid grid-cols-1 gap-5 text-center sm:grid-cols-3">
+<div class="grid grid-cols-1 gap-5 text-center sm:grid-cols-3" data-reveal="zoom">
     {profile.facts.map((fact) => (
-        <div class="flex min-w-0 flex-col items-center justify-center gap-2">
+        <div class="flex min-w-0 flex-col items-center justify-center gap-2" data-reveal="zoom">
             <h3 class="text-md font-bold text-n900 dark:text-n200">{fact.value}</h3>
             <p class="text-sm text-n700 dark:text-n200">{fact.description}</p>
         </div>

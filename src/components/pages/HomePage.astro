@@ -5,6 +5,7 @@ import TabsButtons from "@/components/TabsButtons.tsx";
 import ProjectsCC from "@/components/ProjectsCC.astro";
 import AboutMeCC from "@/components/AboutMeCC.astro";
 import ProfileFacts from "@/components/ProfileFacts.astro";
+import OutstandingStories from "@/components/OutstandingStories.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getDictionary, type Lang } from "@/i18n";
 
@@ -28,6 +29,7 @@ const dict = getDictionary(lang);
         <ProfileInfo lang={lang}/>
         <ProfileFacts lang={lang}/>
         <ProfileActionButton lang={lang}/>
+        <OutstandingStories lang={lang}/>
         <TabsButtons client:idle portfolioLabel={dict.home.tabs.portfolio} aboutLabel={dict.home.tabs.about}>
             <ProjectsCC slot="portfolio" lang={lang}/>
             <AboutMeCC slot="about" lang={lang}/>

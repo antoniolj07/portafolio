@@ -28,12 +28,12 @@ const projectPath = getLocalizedPath(lang, "/projects");
     scrollSmooth={true}
 >
     <>
-        <div class="flex justify-center mt-10">
+        <div class="flex justify-center mt-10" data-reveal="zoom">
             <BackBtn/>
         </div>
 
-        <section class="flex flex-col gap-8">
-            <div class="flex flex-col gap-4 max-w-4xl">
+        <section class="flex flex-col gap-8" data-reveal="fade-up">
+            <div class="flex flex-col gap-4 max-w-4xl" data-reveal="fade-up">
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="rounded-full bg-primary-light/15 dark:bg-primary-dark/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-n900 dark:text-white">
                         {project.category}
@@ -56,10 +56,10 @@ const projectPath = getLocalizedPath(lang, "/projects");
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-6 items-start">
-                <div class="w-full">
+                <div class="w-full" data-reveal="fade-right">
                     <ProjectMediaFrame image={project.images[0]} variant="hero" urlLabel={project.externalUrl} />
                 </div>
-                <div class="rounded-[28px] border border-neutral-200 dark:border-n700 bg-white dark:bg-n700 p-6 flex flex-col gap-4">
+                <div class="rounded-[28px] border border-neutral-200 dark:border-n700 bg-white dark:bg-n700 p-6 flex flex-col gap-4" data-reveal="fade-left">
                     <div>
                         <p class="text-xs uppercase tracking-[0.2em] text-n500 dark:text-n200">{dict.projects.detailStatusTitle}</p>
                         <p class="mt-2 text-lg font-semibold">{project.status}</p>
@@ -93,7 +93,7 @@ const projectPath = getLocalizedPath(lang, "/projects");
         </section>
 
         <section class="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-6">
-            <article class="rounded-[28px] border border-neutral-200 dark:border-n700 bg-white dark:bg-n700 p-6 md:p-8">
+            <article class="rounded-[28px] border border-neutral-200 dark:border-n700 bg-white dark:bg-n700 p-6 md:p-8" data-reveal="fade-right">
                 <h2 class="text-2xl font-bold mb-4">{dict.projects.detailOverviewTitle}</h2>
                 <div class="space-y-4 text-n700 dark:text-n200 leading-7">
                     {project.overview.map((paragraph) => (
@@ -101,7 +101,7 @@ const projectPath = getLocalizedPath(lang, "/projects");
                     ))}
                 </div>
             </article>
-            <article class="rounded-[28px] border border-neutral-200 dark:border-n700 bg-white dark:bg-n700 p-6 md:p-8">
+            <article class="rounded-[28px] border border-neutral-200 dark:border-n700 bg-white dark:bg-n700 p-6 md:p-8" data-reveal="fade-left">
                 <h2 class="text-2xl font-bold mb-4">{dict.projects.detailHighlightsTitle}</h2>
                 <ul class="space-y-4 text-n700 dark:text-n200">
                     {project.highlights.map((highlight) => (
@@ -114,13 +114,13 @@ const projectPath = getLocalizedPath(lang, "/projects");
             </article>
         </section>
 
-        <section>
-            <div class="mb-4">
+        <section data-reveal="fade-up">
+            <div class="mb-4" data-reveal="fade-up">
                 <h2 class="text-2xl font-bold">{dict.projects.detailGalleryTitle}</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {project.images.map((image) => (
-                    <div class={cn(image.frame === "browser" && "md:col-span-2")}>
+                    <div class={cn(image.frame === "browser" && "md:col-span-2 xl:col-span-3")} data-reveal="zoom">
                         <ProjectMediaFrame image={image} variant="gallery" urlLabel={project.externalUrl} />
                     </div>
                 ))}

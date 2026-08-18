@@ -14,9 +14,9 @@ const dict = getDictionary(lang);
 const projects = getProjects(lang);
 ---
 
-<section class={cn("w-full", showIntro ? "mt-10" : "mt-2")}>
+<section class={cn("w-full", showIntro ? "mt-10" : "mt-2")} data-reveal="fade-up">
     {showIntro && (
-        <div class="mb-8 flex max-w-4xl flex-col gap-3">
+        <div class="mb-8 flex max-w-4xl flex-col gap-3" data-reveal="fade-up">
             <p class="text-sm uppercase tracking-[0.25em] text-n500 dark:text-n200">{dict.projects.eyebrow}</p>
             <h2 class="break-words text-3xl font-bold md:text-4xl">{dict.projects.sectionTitle}</h2>
             <p class="text-n700 dark:text-n200 leading-7">{dict.projects.sectionDescription}</p>

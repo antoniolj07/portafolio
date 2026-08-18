@@ -7,17 +7,17 @@ interface HardSkill {
 const hardSkills: HardSkill[] = [
   {
     name: "Backend Development",
-    description: "Diseno y desarrollo de logica de negocio, servicios, endpoints e integraciones para aplicaciones empresariales.",
+    description: "Diseño y desarrollo de lógica de negocio, servicios, endpoints e integraciones para aplicaciones empresariales.",
     icon: "nodejs"
   },
   {
     name: "REST APIs",
-    description: "Implementacion de APIs para integracion entre modulos, servicios internos y sistemas externos.",
+    description: "Implementación de APIs para integración entre módulos, servicios internos y sistemas externos.",
     icon: "link"
   },
   {
     name: "Full-Stack Development",
-    description: "Construccion de aplicaciones web completas con experiencia en NestJS, Angular, Laravel y TypeScript.",
+    description: "Construcción de aplicaciones web completas con experiencia en NestJS, Angular, Laravel y TypeScript.",
     icon: "typescript"
   },
   {
