@@ -14,7 +14,7 @@ export const SITE = {
     base: appConfig.site.base,
     trailingSlash: appConfig.site.trailingSlash,
     googleSiteVerificationId: appConfig.site.googleSiteVerificationId ?? "",
-    ogImage: defaultOgImage?.url ?? "/og-image.webp",
+    ogImage: defaultOgImage?.url ?? "/og-portfolio-jorge.png",
     logo: "logo",
     logoText: "Jorge",
     lang: appConfig.i18n.language,

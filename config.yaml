@@ -21,10 +21,11 @@ metadata:
   openGraph:
     site_name: Jorge Antonio Pérez Ordóñez Portfolio
     images:
-      - url: '/og-image.webp'
+      - url: '/og-portfolio-jorge.png'
         width: 1200
-        height: 628
+        height: 630
         alt: 'Jorge Antonio Pérez Ordóñez - Software Engineer Portfolio'
+        type: 'image/png'
     type: website
   twitter:
     cardType: summary_large_image

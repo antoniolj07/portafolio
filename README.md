@@ -131,7 +131,7 @@ export const SITE = {
     title: "Simple Portfolio",
     description: "A simple but beautiful portfolio created with Astro",
     tags: ["portfolio", "Resume cv", "Astro"],
-    ogImage: "/og-image.webp",
+    ogImage: "/og-portfolio-jorge.png",
     logo: "logo",
     logoText: "SPortfolio",
     lang: "en",
