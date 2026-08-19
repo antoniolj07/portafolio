@@ -56,6 +56,14 @@ export interface OutstandingStory {
     items: OutstandingStoryItem[];
 }
 
+export interface ProfessionalReference {
+    name: string;
+    initials: string;
+    context: string;
+    relationship: string;
+    description: string;
+}
+
 export type ProjectImageFrame = "browser" | "phone" | "plain";
 
 export interface ProjectImage {
@@ -104,6 +112,21 @@ export interface LocaleDictionary {
             portfolio: string;
             about: string;
         };
+        contact: {
+            eyebrow: string;
+            title: string;
+            description: string;
+            emailLabel: string;
+            buttonLabel: string;
+            availability: string;
+        };
+        references: {
+            eyebrow: string;
+            title: string;
+            description: string;
+            relationshipLabel: string;
+            items: ProfessionalReference[];
+        };
         outstanding: {
             ariaLabel: string;
             closeLabel: string;
@@ -117,7 +140,7 @@ export interface LocaleDictionary {
     profile: {
         name: string;
         profession: string;
-        aboutMe: string;
+        aboutMe: string[];
         facts: ProfileFact[];
         experienceTitle: string;
         educationTitle: string;
@@ -152,8 +175,6 @@ export interface LocaleDictionary {
         detailLocationTitle: string;
         detailStatusTitle: string;
         placeholderBadge: string;
-        ctaTitle: string;
-        ctaDescription: string;
         items: ProjectEntry[];
     };
     blog: {

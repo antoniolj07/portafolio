@@ -26,6 +26,43 @@ const es: LocaleDictionary = {
             portfolio: "Portafolio",
             about: "Sobre mí",
         },
+        contact: {
+            eyebrow: "Contacto",
+            title: "¿Trabajamos juntos?",
+            description: "Si tienes una oportunidad, un proyecto o simplemente quieres conversar sobre cómo puedo aportar, puedes escribirme por correo. Respondo con gusto y sin complicaciones.",
+            emailLabel: "Correo electrónico",
+            buttonLabel: "Escribirme",
+            availability: "Disponible para nuevas oportunidades y proyectos de software.",
+        },
+        references: {
+            eyebrow: "Referencias profesionales",
+            title: "Personas con las que he crecido y construido",
+            description: "Compañeros que han formado parte importante de mi camino profesional y con quienes he compartido retos, aprendizaje y trabajo en equipo.",
+            relationshipLabel: "Lo que valoro de nuestra colaboración",
+            items: [
+                {
+                    name: "Richard Marroquín",
+                    initials: "RM",
+                    context: "Biblioteca Central USAC · Sistema ILS y EPS",
+                    relationship: "Colaboración técnica y apoyo durante el EPS",
+                    description: "Trabajamos juntos en el desarrollo del sistema ILS para la Biblioteca Central. Compartimos conocimientos, resolvimos dudas y nos apoyamos durante todo el proceso; su acompañamiento fue clave para sacar adelante esta etapa.",
+                },
+                {
+                    name: "Guillermo Santos",
+                    initials: "GS",
+                    context: "Global Support · 2020–2025",
+                    relationship: "Mentoría, amistad y resolución de problemas",
+                    description: "Ha sido una de las personas que más me ha motivado a crecer como profesional. Aprendí mucho de él desde el inicio de mi carrera, trabajamos juntos durante varios años y compartimos retos importantes, incluido nuestro viaje de trabajo a New Jersey.",
+                },
+                {
+                    name: "Álvaro Granillo",
+                    initials: "AG",
+                    context: "Global Support · Actualidad",
+                    relationship: "Trabajo en equipo y crecimiento compartido",
+                    description: "Seguimos trabajando juntos en Global Support y hemos desarrollado distintos sistemas como equipo. Desde el inicio he podido apoyarlo y compartir mi experiencia con él; valoro especialmente su responsabilidad, su disposición para aprender y la confianza con la que resolvemos necesidades reales.",
+                },
+            ],
+        },
         outstanding: {
             ariaLabel: "Historias destacadas",
             closeLabel: "Cerrar historia",
@@ -107,8 +144,14 @@ const es: LocaleDictionary = {
     },
     profile: {
         name: "Jorge Antonio Pérez Ordóñez",
-        profession: "Software Engineer | Backend & Full-Stack Development",
-        aboutMe: "Soy desarrollador de software con experiencia profesional desde 2020, enfocado principalmente en el desarrollo backend y full-stack de aplicaciones web y sistemas empresariales. A lo largo de mi experiencia he participado en el análisis, diseño, desarrollo y mantenimiento de soluciones de software, trabajando con tecnologías como NestJS, Laravel, Angular, TypeScript, PHP, Node.js, MySQL, PostgreSQL, MongoDB, Docker y Google Cloud. También tengo experiencia en el diseño de APIs REST, modelado de bases de datos, integración de servicios y definición de soluciones técnicas para diferentes necesidades de negocio. He desarrollado proyectos relacionados con logística, gestión de rutas, pedidos, inventarios, procesos administrativos y sistemas de información, lo que me ha permitido trabajar con problemas reales, reglas de negocio complejas y aplicaciones que requieren escalabilidad, mantenibilidad y una buena arquitectura. En Global Support también he trabajado en contextos donde la comunicación en inglés ha sido parte importante del día a día. Paralelamente a mi experiencia profesional, cursé Ingeniería en Ciencias y Sistemas en la Universidad de San Carlos de Guatemala. Actualmente cuento con el pensum de estudios cerrado y el Ejercicio Profesional Supervisado (EPS) finalizado, encontrándome en la etapa final del proceso de graduación. Me considero una persona orientada a la resolución de problemas, con interés constante por aprender, mejorar mis habilidades técnicas y desarrollar soluciones de software que aporten valor real. Actualmente busco nuevas oportunidades que me permitan continuar creciendo como Software Engineer, especialmente en áreas de backend y desarrollo full-stack.",
+        profession: "Software Engineer | Full-Stack Development | Senior",
+        aboutMe: [
+            "Me dedico al desarrollo de software desde 2020. He trabajado principalmente creando aplicaciones web, servicios backend y herramientas internas que ayudan a resolver necesidades reales dentro de una empresa.",
+            "Me gusta entender primero el problema y luego construir una solución clara, útil y fácil de mantener. En mi experiencia he trabajado con proyectos de logística, rutas, pedidos, inventarios y procesos administrativos.",
+            "También he participado en equipos donde el inglés forma parte del trabajo diario, especialmente para coordinar requerimientos, dar seguimiento a tareas y apoyar proyectos.",
+            "Estudié Ingeniería en Ciencias y Sistemas en la Universidad de San Carlos de Guatemala. Ya cerré pensum y finalicé mi EPS, así que actualmente estoy en la etapa final del proceso de graduación.",
+            "Busco seguir creciendo como desarrollador, aportar en proyectos bien hechos y trabajar con equipos donde se valore la comunicación, la responsabilidad y las ganas de mejorar.",
+        ],
         facts: [
             { value: "6+", description: "años de experiencia profesional" },
             { value: "2020", description: "trabajando en desarrollo de software" },
@@ -231,8 +274,6 @@ const es: LocaleDictionary = {
         detailLocationTitle: "Cobertura",
         detailStatusTitle: "Estado",
         placeholderBadge: "Placeholder",
-        ctaTitle: "Más proyectos en preparación",
-        ctaDescription: "Esta sección queda lista para seguir agregando estudios de caso más profundos, capturas reales y resultados medibles conforme me compartas más detalles e imágenes.",
         items: [
             {
                 slug: "eps-ils-usac",

@@ -110,7 +110,7 @@ const background = Buffer.from(`
     ${text("Jorge Antonio", 292, 184, { size: 47, weight: 800 })}
     ${text("Pérez Ordóñez", 292, 234, { size: 47, weight: 800 })}
     ${text("Software Engineer", 294, 278, { size: 25, weight: 600, fill: "#EAF2F7" })}
-    ${text("Backend & Full-Stack", 294, 310, { size: 25, weight: 600, fill: "#EAF2F7" })}
+    ${text("Full-Stack", 294, 310, { size: 25, weight: 600, fill: "#EAF2F7" })}
     ${text("Sistemas reales para logística,", 294, 352, { size: 21, weight: 400, fill: "#B8C7D0" })}
     ${text("ventas en campo e instituciones.", 294, 381, { size: 21, weight: 400, fill: "#B8C7D0" })}
 

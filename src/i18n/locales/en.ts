@@ -26,6 +26,43 @@ const en: LocaleDictionary = {
             portfolio: "Portfolio",
             about: "About",
         },
+        contact: {
+            eyebrow: "Contact",
+            title: "Let’s work together",
+            description: "If you have an opportunity, a project, or simply want to talk about how I can help, feel free to send me an email. I am happy to reply and keep the conversation simple.",
+            emailLabel: "Email",
+            buttonLabel: "Email me",
+            availability: "Available for new software opportunities and projects.",
+        },
+        references: {
+            eyebrow: "Professional references",
+            title: "People I have grown and built with",
+            description: "Colleagues who have played an important role in my professional journey and with whom I have shared challenges, learning, and teamwork.",
+            relationshipLabel: "What I value about our work together",
+            items: [
+                {
+                    name: "Richard Marroquín",
+                    initials: "RM",
+                    context: "USAC Central Library · ILS and EPS",
+                    relationship: "Technical collaboration and support during my EPS",
+                    description: "We worked together on the ILS for the Central Library. We shared knowledge, worked through questions, and supported each other throughout the process; his help was essential during this stage.",
+                },
+                {
+                    name: "Guillermo Santos",
+                    initials: "GS",
+                    context: "Global Support · 2020–2025",
+                    relationship: "Mentorship, friendship, and problem solving",
+                    description: "He is one of the people who has encouraged me most to grow as a professional. I learned a great deal from him early in my career, worked alongside him for several years, and shared important challenges, including our work trip to New Jersey.",
+                },
+                {
+                    name: "Álvaro Granillo",
+                    initials: "AG",
+                    context: "Global Support · Present",
+                    relationship: "Teamwork and shared growth",
+                    description: "We continue working together at Global Support and have developed several systems as a team. From the beginning, I have been able to support him and share my experience; I especially value his responsibility, willingness to learn, and the trust we have built while solving real needs.",
+                },
+            ],
+        },
         outstanding: {
             ariaLabel: "Story highlights",
             closeLabel: "Close story",
@@ -107,8 +144,14 @@ const en: LocaleDictionary = {
     },
     profile: {
         name: "Jorge Antonio Pérez Ordóñez",
-        profession: "Software Engineer | Backend & Full-Stack Development",
-        aboutMe: "I am a software developer with professional experience since 2020, primarily focused on backend and full-stack development for web applications and business systems. Throughout my experience I have participated in the analysis, design, development, and maintenance of software solutions, working with technologies such as NestJS, Laravel, Angular, TypeScript, PHP, Node.js, MySQL, PostgreSQL, MongoDB, Docker, and Google Cloud. I also have experience designing REST APIs, modeling databases, integrating services, and defining technical solutions for different business needs. I have worked on projects related to logistics, route management, orders, inventory, administrative processes, and information systems, which has allowed me to solve real-world problems involving complex business rules and applications that require scalability, maintainability, and solid architecture. At Global Support, English communication has also been an important part of my day-to-day work. Alongside my professional experience, I studied Computer Science and Systems Engineering at Universidad de San Carlos de Guatemala. I have completed my coursework and Supervised Professional Practice (EPS) and I am currently in the final stage of the graduation process. I consider myself a problem-solving professional with a constant interest in learning, improving my technical skills, and building software solutions that provide real value. I am currently looking for new opportunities that allow me to continue growing as a Software Engineer, especially in backend and full-stack roles.",
+        profession: "Software Engineer | Full-Stack Development | Senior",
+        aboutMe: [
+            "I have been working in software development since 2020. Most of my experience has been building web applications, backend services, and internal tools that solve real business needs.",
+            "I like to understand the problem first and then build a solution that is clear, useful, and easy to maintain. I have worked on projects related to logistics, routes, orders, inventory, and administrative workflows.",
+            "I have also worked in teams where English is part of the day-to-day, especially for coordinating requirements, following up on tasks, and supporting projects.",
+            "I studied Computer Science and Systems Engineering at Universidad de San Carlos de Guatemala. I have completed my coursework and my EPS, and I am currently in the final stage of the graduation process.",
+            "I am looking to keep growing as a developer, contribute to well-built projects, and work with teams that value communication, responsibility, and continuous improvement.",
+        ],
         facts: [
             { value: "6+", description: "years of professional experience" },
             { value: "2020", description: "working in software development" },
@@ -231,8 +274,6 @@ const en: LocaleDictionary = {
         detailLocationTitle: "Coverage",
         detailStatusTitle: "Status",
         placeholderBadge: "Placeholder",
-        ctaTitle: "More projects in progress",
-        ctaDescription: "This section is ready to keep growing with deeper case studies, real screenshots, and measurable results as I add more details and visuals.",
         items: [
             {
                 slug: "eps-ils-usac",

@@ -33,7 +33,7 @@ export const PROFILE = {
     name: "Jorge Antonio Pérez Ordóñez",
     profileImage: "/img/jorge/Perfil.jpeg",
     contactInfo: {
-        email: "",
+        email: "jorgeperezlj@gmail.com",
         linkedin: "",
         resumeDoc: "",
     },

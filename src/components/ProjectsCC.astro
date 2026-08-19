@@ -1,24 +1,19 @@
 ---
+import ContactSection from "./ContactSection.astro";
 import FeaturedProjects from "./FeaturedProjects.astro";
+import ReferencesSection from "./ReferencesSection.astro";
 
-import { getDictionary, type Lang } from "@/i18n";
+import { type Lang } from "@/i18n";
 
 interface Props {
     lang: Lang;
 }
 
 const { lang } = Astro.props as Props;
-const dict = getDictionary(lang);
 ---
 
 <>
     <FeaturedProjects lang={lang} />
-    <section class="mt-10 w-full" data-reveal="fade-up">
-        <div class="rounded-[28px] border border-dashed border-neutral-300 dark:border-n700 p-8 bg-white/70 dark:bg-n700/40">
-            <h2 class="text-2xl font-bold mb-3">{dict.projects.ctaTitle}</h2>
-            <p class="max-w-3xl text-n700 dark:text-n200 leading-7">
-                {dict.projects.ctaDescription}
-            </p>
-        </div>
-    </section>
+    <ReferencesSection lang={lang} />
+    <ContactSection lang={lang} />
 </>
